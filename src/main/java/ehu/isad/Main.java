@@ -19,18 +19,22 @@ public class Main extends Application {
     private Parent HerrialdeaHautatuUI;
     private Parent ErroreaUI;
     private Parent BozkaketaUI;
+    private Parent Top3UI;
 
     private Stage stage;
 
     private Scene sceneHasiera;
     private Scene sceneHerrialdeHautatu;
     private Scene sceneErrorea;
+    private Scene sceneBozkatu;
+    private Scene sceneTop3;
 
 
     private HasieraKud hasieraKud;
     private HerrialdeaHautatuKud herrialdeaHautatuKud;
     private ErroreaKud erroreaKud;
-
+    private BozkaketaKud bozkaketaKud;
+    private Top3Kud top3Kud;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -59,6 +63,18 @@ public class Main extends Application {
         erroreaKud = loaderErrorea.getController();
         erroreaKud.setMainApp(this);
         sceneErrorea = new Scene(ErroreaUI);
+
+        FXMLLoader loaderBozkatu = new FXMLLoader(getClass().getResource("/Bozkatu.fxml"));
+        BozkaketaUI = (Parent) loaderBozkatu.load();
+        bozkaketaKud = loaderBozkatu.getController();
+        bozkaketaKud.setMainApp(this);
+        sceneBozkatu = new Scene(BozkaketaUI);
+
+        FXMLLoader loaderTop3 = new FXMLLoader(getClass().getResource("/Top3.fxml"));
+        Top3UI = (Parent) loaderTop3.load();
+        top3Kud = loaderTop3.getController();
+        top3Kud.setMainApp(this);
+        sceneTop3 = new Scene(Top3UI);
     }
 
 
@@ -70,8 +86,25 @@ public class Main extends Application {
 
     public void erroreaBozkaketaErakutsi(Herrialdea herrialdea){
         stage.setTitle("Errorea bozkaketan");
-        erroreaKud.datuakJarri(herrialdea);
+        erroreaKud.erroreaErakutsi(herrialdea);
         stage.setScene(sceneErrorea);
         stage.show();
     }
+
+    public void bozkatuErakutsi(Herrialdea herrialdea){
+        stage.setTitle("Puntuak banatu");
+        bozkaketaKud.norkBozkatu(herrialdea);
+        stage.setScene(sceneBozkatu);
+        stage.show();
+    }
+
+    public void top3Erakutsi(){
+        stage.setTitle("TOP 3");
+        stage.setScene(sceneTop3);
+        stage.show();
+    }
+
+    /*public void aplikazioaItxi(){
+        System.exit(0);
+    }*/
 }

@@ -41,7 +41,7 @@ public class ErroreaKud implements Initializable {
 
     }
 
-    public void datuakJarri(Herrialdea herrialdea){
+    public void erroreaErakutsi(Herrialdea herrialdea){
         this.txt_errorea.setText(herrialdea.getIzena()+ "k jada banatu ditu bere puntuak");
     }
 }

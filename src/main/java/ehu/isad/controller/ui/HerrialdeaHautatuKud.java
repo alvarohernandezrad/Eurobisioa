@@ -46,7 +46,7 @@ public class HerrialdeaHautatuKud implements Initializable {
 
             }
             else{ //Oraindik bozkatu behar du
-                System.out.println("Oraindik bozkatu behar du");//hemen bozkatzeko pantaila agertarazi beharko da
+                main.bozkatuErakutsi(herrialdea);//hemen bozkatzeko pantaila agertarazten da
             }
         }
     }
