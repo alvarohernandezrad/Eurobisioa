@@ -5,12 +5,16 @@ package ehu.isad;
 
 import ehu.isad.controller.ui.*;
 import ehu.isad.model.Herrialdea;
+import ehu.isad.utils.Utils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -93,6 +97,7 @@ public class Main extends Application {
 
     public void bozkatuErakutsi(Herrialdea herrialdea){
         stage.setTitle("Puntuak banatu");
+        bozkaketaKud.herrialdeBozkatzailea(herrialdea.getIzena());
         bozkaketaKud.norkBozkatu(herrialdea);
         stage.setScene(sceneBozkatu);
         stage.show();

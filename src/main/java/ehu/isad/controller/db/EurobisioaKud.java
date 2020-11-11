@@ -2,6 +2,7 @@ package ehu.isad.controller.db;
 
 import ehu.isad.model.Herrialdea;
 import ehu.isad.model.Ordezkaritza;
+import ehu.isad.model.Top3;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class EurobisioaKud {
     private EurobisioaKud() { }
 
     public List<Herrialdea> lortuHerrialdeak(){
-        String query = "SELECT izena, bandera FROM Herrialde"; //WHERE year(urtea)=year(now()) edo urtea=currentYear()
+        String query = "SELECT izena, bandera FROM Herrialde"; //urtea begiratu beharkolitzateke baita WHERE urtea=currentYear()
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
@@ -41,7 +42,7 @@ public class EurobisioaKud {
     }
 
     public String bozkatuDu(String herrialdea){
-        String query = "SELECT h.bandera bandera FROM Herrialde h, Bozkaketa b WHERE izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now'))";
+        String query = "SELECT h.bandera bandera FROM Bozkaketa b, Herrialde h  WHERE izena='"+herrialdea+"' AND b.bozkatuDu=h.izena AND b.urtea=(SELECT strftime('%Y','now'))";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
@@ -75,5 +76,37 @@ public class EurobisioaKud {
         return ordezkaritzak;
     }
 
+    public void puntuakSartu(String herrialdea, Integer puntuKop){
+        String query = "UPDATE Ordezkaritza SET puntuak=puntuak+"+puntuKop+" WHERE herrialdea='"+herrialdea+"'";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
+
+
+    public void bozkaketaGorde(String nori, String nork, Integer puntuKop){
+        String query = "INSERT INTO Bozkaketa VALUES('"+nori+"','"+nork+"', (SELECT strftime('%Y','now')),"+puntuKop+")";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
+    public Top3[] lortuTop3(){
+        Top3 top3[] = new Top3[3];
+        String query = "SELECT herrialdea, puntuak FROM Ordezkaritza ORDER BY puntuak DESC LIMIT 3;";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        ResultSet rs = dbKudeatzaile.execSQL(query);
+        int i = 0;
+        try {
+            while (rs.next()) {
+                String herrialdea = rs.getString("herrialdea");
+                int puntuak= rs.getInt("puntuak");
+                top3[i] = new Top3(herrialdea,puntuak);
+                i++;
+            }
+        }catch (SQLException e){
+            System.err.println(e);
+        }
+        return top3;
+    }
 
 }

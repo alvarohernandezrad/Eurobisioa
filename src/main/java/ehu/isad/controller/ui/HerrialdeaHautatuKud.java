@@ -41,12 +41,11 @@ public class HerrialdeaHautatuKud implements Initializable {
         if(cmbx_herrialdeak.getValue()!=null){
             Herrialdea herrialdea = cmbx_herrialdeak.getValue();
             String bandera = EurobisioaKud.getInstance().bozkatuDu(herrialdea.getIzena());
-            if(bandera!=null){ //Jada bozkatu du
-                main.erroreaBozkaketaErakutsi(herrialdea);
-
+            if(bandera==null){ //Oraindik bozkatu behar du
+                main.bozkatuErakutsi(herrialdea);
             }
-            else{ //Oraindik bozkatu behar du
-                main.bozkatuErakutsi(herrialdea);//hemen bozkatzeko pantaila agertarazten da
+            else{  //Jada bozkatu du
+                main.erroreaBozkaketaErakutsi(herrialdea);
             }
         }
     }

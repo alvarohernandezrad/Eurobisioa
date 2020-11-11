@@ -4,17 +4,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import ehu.isad.Main;
+import ehu.isad.controller.db.EurobisioaKud;
+import ehu.isad.model.Top3;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Top3Kud {
 
-    private Main main;
+    Main main;
 
-    public void setMainApp(Main main){
+    public void setMainApp(Main main) {
         this.main = main;
     }
 
@@ -24,26 +27,57 @@ public class Top3Kud {
     @FXML
     private URL location;
 
-    @FXML
-    private Text txt_top3;
-
-    @FXML
-    private TableView<?> tv_top3;
 
     @FXML
     private Button btn_OK;
 
     @FXML
-    void OnClick(ActionEvent event) {
-        //main.aplikazioaItxi();
-        System.exit(0);
-    }
+    private Label lbl_top1;
+
+    @FXML
+    private Label lbl_top2;
+
+    @FXML
+    private Label lbl_top3;
+
+    @FXML
+    private ImageView im_her1;
+
+    @FXML
+    private ImageView im_her2;
+
+    @FXML
+    private ImageView im_her3;
 
     @FXML
     void initialize() {
-        assert txt_top3 != null : "fx:id=\"txt_top3\" was not injected: check your FXML file 'Top3.fxml'.";
-        assert tv_top3 != null : "fx:id=\"tv_top3\" was not injected: check your FXML file 'Top3.fxml'.";
-        assert btn_OK != null : "fx:id=\"btn_OK\" was not injected: check your FXML file 'Top3.fxml'.";
+        this.datuakJarri(EurobisioaKud.getInstance().lortuTop3());
+    }
 
+    private void datuakJarri(Top3 irabazleak[]){ //switch batekin hobetu
+        Top3 top3;
+        for(int i = 0;i < irabazleak.length;i++){
+            top3 = irabazleak[i];
+            if(i==0){
+                lbl_top1.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
+                im_her1.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+            }else if(i==1){
+                lbl_top2.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
+                im_her2.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+            }else if(i==2){
+                lbl_top3.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
+                im_her3.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+            }
+        }
+    }
+
+    private Image irudiaLortu(String herrialdeIzena) {
+        Image image = null;
+        image = new Image(getClass().getResourceAsStream("/Images/"+herrialdeIzena+".png"));
+        return image;
+    }
+
+    public void OnClick(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

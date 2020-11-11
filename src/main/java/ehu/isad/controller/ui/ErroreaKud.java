@@ -29,6 +29,9 @@ public class ErroreaKud implements Initializable {
     private Text txt_errorea;
 
     @FXML
+    private ImageView image_bihotza;
+
+    @FXML
     private Button btn_OK;
 
     @FXML
@@ -43,6 +46,18 @@ public class ErroreaKud implements Initializable {
 
     public void erroreaErakutsi(Herrialdea herrialdea){
         this.txt_errorea.setText(herrialdea.getIzena()+ "k jada banatu ditu bere puntuak");
+        this.bihotzarenIrudiaJarri(herrialdea.getBandera());
+    }
+
+
+    private void bihotzarenIrudiaJarri(String herrialdea){
+        image_bihotza.setImage(this.irudiaLortu(herrialdea));
+    }
+
+    private Image irudiaLortu(String bandera) {
+        Image image = null;
+        image = new Image(getClass().getResourceAsStream("/Images/"+bandera+"Bihotza.png"));
+        return image;
     }
 }
 
