@@ -54,11 +54,11 @@ public class Top3Kud {
         this.datuakJarri(EurobisioaKud.getInstance().lortuTop3());
     }
 
-    private void datuakJarri(Top3 irabazleak[]){ //switch batekin hobetu
+    private void datuakJarri(Top3 irabazleak[]){ //gure botoa ez dugu hemen ikusiko. Hurrengoak botoa ematerakoan gure botoak sartuta egongo dira.
         Top3 top3;
         for(int i = 0;i < irabazleak.length;i++){
             top3 = irabazleak[i];
-            if(i==0){
+            /*if(i==0){
                 lbl_top1.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
                 im_her1.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
             }else if(i==1){
@@ -67,6 +67,20 @@ public class Top3Kud {
             }else if(i==2){
                 lbl_top3.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
                 im_her3.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+            }*/
+            switch(i){
+                case 0:
+                    lbl_top1.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
+                    im_her1.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+                    break;
+                case 1:
+                    lbl_top2.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
+                    im_her2.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+                    break;
+                case 2:
+                    lbl_top3.setText(top3.getIzena()+" - "+top3.getPuntuak()+" puntu");
+                    im_her3.setImage(this.irudiaLortu(top3.getIzena().toLowerCase()));
+                    break;
             }
         }
     }

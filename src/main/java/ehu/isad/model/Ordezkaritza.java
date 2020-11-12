@@ -1,7 +1,14 @@
 package ehu.isad.model;
 
+import ehu.isad.utils.Utils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class Ordezkaritza {
-    private String bandera;
+    private Image bandera;
     private Herrialdea herrialdea;
     private String artista;
     private String abestia;
@@ -12,15 +19,21 @@ public class Ordezkaritza {
         this.artista = artista;
         this.abestia = abestia;
         this.puntuak = 0;
+
+
+        String irudiakErruta = Utils.lortuEzarpenak().getProperty("pathToImages")+herrialdea.getBandera()+".png";
+        try {
+            this.bandera = new Image(new FileInputStream(irudiakErruta));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public String getBandera(){
+    public Image getBandera(){
         return bandera;
     }
 
-    public void setBandera(){
-        this.bandera = bandera;
-    }
+    public void setBandera(Image bandera) { this.bandera = bandera;   }
 
     public Herrialdea getHerrialdea() {
         return herrialdea;

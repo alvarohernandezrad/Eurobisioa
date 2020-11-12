@@ -31,7 +31,7 @@ public class EurobisioaKud {
             while (rs.next()) {
                 String izena = rs.getString("izena");
                 String bandera = rs.getString("bandera");
-                System.out.println(izena + ":" + bandera);
+                //System.out.println(izena + ":" + bandera);
                 emaitza.add(new Herrialdea(izena,bandera));
             }
         } catch(SQLException throwables){
